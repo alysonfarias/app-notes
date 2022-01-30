@@ -1,4 +1,4 @@
-### You can view the project  [Create React App](https://app-notes-alysonfarias.netlify.app/).
+### You can view the project clicking [here](https://app-notes-alysonfarias.netlify.app/).
 
 ## Getting started 
 
