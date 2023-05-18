@@ -1,5 +1,5 @@
 import React from 'react';
-import { BsLightbulb, BsLightbulbOff } from 'react-icons/bs';
+// import { BsLightbulb, BsLightbulbOff } from 'react-icons/bs';
 
 
 const Header = ({handleToggleDarkMode, darkMode}) => {
@@ -7,11 +7,11 @@ const Header = ({handleToggleDarkMode, darkMode}) => {
         <div className='header'>
             <h1>NotNote</h1>
             <a href='https://github.com/alysonfarias' class="easter-egg">You found this, but don't click here :D</a>
-            {darkMode && <BsLightbulb visibility={true} class="btn" onClick={()=> 
+            {darkMode && <div visibility={true} class="btn" onClick={()=> 
                 handleToggleDarkMode(
                     (previusDarkMode)=> !previusDarkMode )
                 }/> }
-            {!darkMode &&<BsLightbulbOff class="btn" onClick={()=> 
+            {!darkMode &&<div class="btn" onClick={()=> 
                 handleToggleDarkMode(
                     (previusDarkMode)=> !previusDarkMode )
                 }/>}

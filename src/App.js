@@ -1,80 +1,101 @@
 import { useEffect, useState } from "react";
 import NotesList from "./components/NotestList";
-import { nanoid } from 'nanoid';
 import Search from "./components/Search";
 import Header from './components/Header';
-const App = () => {
-  const [notes, setNotes] = useState([{
-    id: nanoid(),
-    text: "This is my first note!",
-    date: "28/01/2022"
-  },
-  {
-    id: nanoid(),
-    text: "This is my second note!",
-    date: "23/11/2020"
-  },
-  {
-    id: nanoid(),
-    text: "This is my third note!",
-    date: "21/01/2019"
-  }]);
-    
-  const addNote = (text) => {
-    const date = new Date();
-    const newNote = {
-      id: nanoid(),
-      text: text,
-      date: date.toLocaleDateString(),
-    }
-    const newNotes = [ ...notes, newNote];
-    setNotes(newNotes);
-  }
-  const removeNote = (id) => {
-    const newNotes = notes.filter((note) => note.id !== id);
-    setNotes(newNotes);
-  }
 
+const App = () => {
+  const [notes, setNotes] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [darkMode, setDarkMode] = useState(false);
 
-  // reading data from notes and dark-mode options
   useEffect(() => {
-    const savedNotes = JSON.parse(localStorage.getItem('react-notes-app-data'))
-    const darkMode = JSON.parse(localStorage.getItem('dark-modeOption'))
-    if(savedNotes){
-      setNotes(savedNotes);
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://localhost:7107/cards");
+        console.log("🚀 ~ file: App.js:15 ~ fetchData ~ response:", response)
+        if (response.ok) {
+          const data = await response.json();
+          setNotes(data);
+        } else {
+          console.error("Failed to fetch data:", response.status, response.statusText);
+        }
+      } catch (error) {
+        console.error("Error:", error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const addNote = async (text) => {
+    const newNote = {
+      title: text,
+      description: "",
+      author: "",
+      isVisible: true,
+    };
+
+    try {
+      const response = await fetch("https://localhost:7107/card", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newNote),
+      });
+
+      if (response.ok) {
+        const createdNote = await response.json();
+        setNotes([...notes, createdNote]);
+      } else {
+        console.error("Failed to add note:", response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
     }
-    if(darkMode){
-      setDarkMode(darkMode)
+  };
+
+  const removeNote = async (id) => {
+    try {
+      const response = await fetch(`https://localhost:7107/card/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        const updatedNotes = notes.filter((note) => note.id !== id);
+        setNotes(updatedNotes);
+      } else {
+        console.error("Failed to delete note:", response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
     }
-  }, [])
-
-  // saving notes on localStorage
-  useEffect(() => {
-    localStorage.setItem(
-      'react-notes-app-data', JSON.stringify(notes))
-  }, [notes])
-
-  // darkModeOption
+  };
 
   useEffect(() => {
-    localStorage.setItem(
-      'dark-modeOption', JSON.stringify(darkMode))
-  }, [darkMode])
-    return(
-      <div className={`${darkMode && 'dark-mode'}`}>
-        <div className="container">
-          <Header handleToggleDarkMode={setDarkMode} darkMode={darkMode}/>
-          <Search handleSearchNote={setSearchText}/>
-          <NotesList notes={notes.filter((note) => note.text.toLowerCase().includes(searchText))} 
-          handleAddNote={addNote}
+    const savedDarkMode = JSON.parse(localStorage.getItem("dark-modeOption"));
+    if (savedDarkMode) {
+      setDarkMode(savedDarkMode);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("dark-modeOption", JSON.stringify(darkMode));
+  }, [darkMode]);
+
+  return (
+    <div className={`${darkMode && 'dark-mode'}`}>
+      <div className="container">
+        <Header handleToggleDarkMode={setDarkMode} darkMode={darkMode} />
+        <Search handleSearchNote={setSearchText} />
+        <NotesList
+          notes={notes.filter((note) => note.title.toLowerCase().includes(searchText))}
+          handleAddCard={addNote}
           handleRemoveNote={removeNote}
-          />
-        </div>  
+        />
       </div>
-
-  )
-}
+    </div>
+  );
+};
 
 export default App;

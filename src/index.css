@@ -37,6 +37,10 @@ code {
   white-space: pre-wrap;
 }
 
+.note:hover{
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
 .note-footer{
   display: flex;
   align-items: center;

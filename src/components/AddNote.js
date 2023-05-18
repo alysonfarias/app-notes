@@ -1,52 +1,51 @@
 import { useState } from "react";
 
-const AddNote = ({ handleAddNote }) => {
-    const [noteText, setNoteText] = useState('');
+const AddNote = ({ handleAddCard }) => {
+    const [cardText, setCardText] = useState('');
     const charLimit = 200;
-    const handleChange = (event) => {
-        if(charLimit - event.target.value.length >= 0){
-            setNoteText(event.target.value);
-        }
-    }
 
+    const handleChange = (event) => {
+        if (charLimit - event.target.value.length >= 0) {
+            setCardText(event.target.value);
+        }
+    };
 
     const handleSaveClick = (event) => {
-        if(noteText.trim().length > 0){
-            handleAddNote(noteText);
-            setNoteText('')
+        if (cardText.trim().length > 0) {
+            const newCard = {
+                text: cardText,
+            };
+            handleAddCard(newCard);
+            setCardText('');
         }
-    }
+    };
+
     const handleClearClick = (event) => {
-            setNoteText('')
-    }
+        setCardText('');
+    };
 
-
-
-    return(
+    return (
         <div className="note new">
-            <textarea 
-            rows="8"
-            cols="10"
-            placeholder="Type to add a note..."
-            onChange={handleChange}
-            value={noteText}
-           >
-            </textarea>
-            <div className="note-footer">
-                <small>{charLimit - noteText.length} Remaining</small>
+            <textarea
+                rows="8"
+                cols="10"
+                placeholder="Type to add a card..."
+                onChange={handleChange}
+                value={cardText}
+            ></textarea>
+            <div className="card-footer">
+                <small>{charLimit - cardText.length} Remaining</small>
                 <div className="options">
-                    <button className="btn clear"  onClick={handleClearClick}>
+                    <button className="btn clear" onClick={handleClearClick}>
                         Clear
-                    </button>    
-                    <button className="btn"  onClick={handleSaveClick}>
+                    </button>
+                    <button className="btn" onClick={handleSaveClick}>
                         Save
-                    </button>               
-
+                    </button>
                 </div>
-
-            </div>    
+            </div>
         </div>
-    )
-}
+    );
+};
 
 export default AddNote;
