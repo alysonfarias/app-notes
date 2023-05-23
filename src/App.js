@@ -11,7 +11,7 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://localhost:7107/cards");
+        const response = await fetch("https://projetoredes.azurewebsites.net//cards");
         console.log("🚀 ~ file: App.js:15 ~ fetchData ~ response:", response)
         if (response.ok) {
           const data = await response.json();
@@ -28,15 +28,10 @@ const App = () => {
   }, []);
 
   const addNote = async (text) => {
-    const newNote = {
-      title: text,
-      description: "",
-      author: "",
-      isVisible: true,
-    };
+    const newNote = text;
 
     try {
-      const response = await fetch("https://localhost:7107/card", {
+      const response = await fetch("https://projetoredes.azurewebsites.net/card", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +52,7 @@ const App = () => {
 
   const removeNote = async (id) => {
     try {
-      const response = await fetch(`https://localhost:7107/card/${id}`, {
+      const response = await fetch(`https://projetoredes.azurewebsites.net/card/${id}`, {
         method: "DELETE",
       });
 
