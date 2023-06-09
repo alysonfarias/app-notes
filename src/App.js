@@ -27,8 +27,8 @@ const App = () => {
     checkAdminRole();
     const fetchData = async () => {
       try {
-        // const response = await fetch("https://projetoredes.azurewebsites.net//cards");
-        const response = await fetch("https://localhost:7107/cards");
+        const response = await fetch("https://projetoredes.azurewebsites.net//cards");
+        // const response = await fetch("https://localhost:7107/cards");
         console.log("🚀 ~ file: App.js:15 ~ fetchData ~ response:", response)
         if (response.ok) {
           const data = await response.json();
@@ -66,8 +66,8 @@ const App = () => {
     const newNote = text;
 
     try {
-      // const response = await fetch("https://projetoredes.azurewebsites.net/card", {
-      const response = await fetch("https://localhost:7107/card", {
+      const response = await fetch("https://projetoredes.azurewebsites.net/card", {
+      // const response = await fetch("https://localhost:7107/card", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -109,7 +109,7 @@ const App = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("https://localhost:7107/cards");
+      const response = await fetch("https://projetoredes.azurewebsites.net/cards");
       console.log("🚀 ~ file: App.js:76 ~ fetchData ~ response:", response)
       return response.json();
       // ...
