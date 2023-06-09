@@ -88,8 +88,8 @@ const App = () => {
 
   const removeNote = async (id) => {
     try {
-      // const response = await fetch(`https://projetoredes.azurewebsites.net/card/${id}`, {
-      const response = await fetch(`https://localhost:7107/card/${id}`, {
+      const response = await fetch(`https://projetoredes.azurewebsites.net/card/${id}`, {
+      // const response = await fetch(`https://localhost:7107/card/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -120,8 +120,8 @@ const App = () => {
 
   const updateNote = async (id, updatedNote) => {
     try {
-      // const response = await fetch(`https://projetoredes.azurewebsites.net/card/${id}`, {
-      const response = await fetch(`https://localhost:7107/card/${id}`, {
+      const response = await fetch(`https://projetoredes.azurewebsites.net/card/${id}`, {
+      // const response = await fetch(`https://localhost:7107/card/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -143,8 +143,8 @@ const App = () => {
 
   const handleUpvote = async (id) => {
     try {
-      // const response = await fetch(`https://projetoredes.azurewebsites.net/card/${id}/upvote`, {
-      const response = await fetch(`https://localhost:7107/card/${id}/upvote`, {
+      const response = await fetch(`https://projetoredes.azurewebsites.net/card/${id}/upvote`, {
+      // const response = await fetch(`https://localhost:7107/card/${id}/upvote`, {
         method: 'PUT',
       });
   
@@ -164,8 +164,8 @@ const App = () => {
   
   const handleDownvote = async (id) => {
     try {
-      // const response = await fetch(`https://projetoredes.azurewebsites.net/card/${id}/downvote`, {
-      const response = await fetch(`https://localhost:7107/card/${id}/downvote`, {
+      const response = await fetch(`https://projetoredes.azurewebsites.net/card/${id}/downvote`, {
+      // const response = await fetch(`https://localhost:7107/card/${id}/downvote`, {
         method: 'PUT',
       });
   
@@ -199,7 +199,8 @@ const App = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://localhost:7107/login', {
+      const response = await fetch('https://projetoredes.azurewebsites.net/login', {
+        // const response = await fetch('https://localhost:7107/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
