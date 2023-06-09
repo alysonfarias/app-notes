@@ -49,7 +49,7 @@ const AddNote = ({ handleAddCard }) => {
     };
 
     return (
-        <div className="note new">
+        <div className="note new ">
             {/* <input id="small-input" placeholder="card title" onChange={handleChangeTitle} value={cardTitle}></input> */}
             <textarea
                 placeholder="Card title..."
@@ -64,11 +64,11 @@ const AddNote = ({ handleAddCard }) => {
                 value={cardText}
             ></textarea>
             <small>{descriptionCharLimit - cardText.length} Description remaining</small>
-            <textarea
+            {/* <textarea
                 placeholder="Author..."
                 onChange={handleChangeAuthor}
                 value={cardAuthor}
-            ></textarea>
+            ></textarea> */}
             <div className="card-footer">
                 <div className="options">
                     <button className="btn clear" onClick={handleClearClick}>
